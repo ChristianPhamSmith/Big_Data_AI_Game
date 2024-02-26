@@ -76,6 +76,7 @@ player = Character(400,300)
 
 # Create a wall instance
 wall = Wall (200, 200, 50, 200)
+floor = Wall (200, 400, 700, 50)
 
 # Create goalpost instances
 goalpost_left = Goalpost(50, 200, 10, 200)
@@ -103,7 +104,7 @@ while True:
     player.rect = pygame.Rect(player.x, player.y, player.width, player.height)
 
     # Check for collision between character and wall
-    if player.rect.colliderect(wall.rect):
+    if player.rect.colliderect(wall.rect) or player.rect.colliderect(floor.rect):
         # If collision occurs, adjust character position to prevent overlap
         if keys[pygame.K_LEFT]:
             player.x = wall.rect.right
@@ -121,8 +122,9 @@ while True:
     # Clear the screen
     screen.fill((255, 255, 255))  # White background
 
-    # Draw the wall
+    # Draw the walls
     wall.draw(screen)
+    floor.draw(screen)
 
     # Draw the goalposts
     goalpost_left.draw(screen)

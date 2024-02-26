@@ -97,23 +97,26 @@ while True:
         player.x += 2
     if keys[pygame.K_UP]:
         player.y -= 2
-    if keys[pygame.K_DOWN]:
-        player.y += 2
-
+    #if keys[pygame.K_DOWN]:
+        #player.y += 2
+    
+    
     # Update character's rect for collision detection
     player.rect = pygame.Rect(player.x, player.y, player.width, player.height)
 
     # Check for collision between character and wall
-    if player.rect.colliderect(wall.rect) or player.rect.colliderect(floor.rect):
+    if player.rect.colliderect(wall.rect):
         # If collision occurs, adjust character position to prevent overlap
         if keys[pygame.K_LEFT]:
             player.x = wall.rect.right
-        if keys[pygame.K_RIGHT]:
-            player.x = wall.rect.left - player.width
-        if keys[pygame.K_UP]:
+        elif keys[pygame.K_RIGHT]:
+            player.x = wall.rect.left
+        elif keys[pygame.K_UP]:
             player.y = wall.rect.bottom
-        if keys[pygame.K_DOWN]:
-            player.y = wall.rect.top - player.height
+            
+    # Adds gravity
+    if not player.rect.colliderect(floor.rect):
+        player.y += 0.5
 
     # Check for win condition (character within a certain distance to goalpost)
     if goalpost_left.distance_to_character(player) < 30 or goalpost_right.distance_to_character(player) < 30:

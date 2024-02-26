@@ -72,15 +72,18 @@ def win_screen():
 # Create a list to store individual frames
         
 # Create character instance
-player = Character(400,300) 
+player = Character(width - 50, height - 50) 
 
 # Create a wall instance
-wall = Wall (200, 200, 50, 200)
-floor = Wall (200, 400, 700, 50)
-
+wall = Wall(200, 200, 50, 200)
+  # Positioned at the bottom of the screen
+floor = Wall(200, 400, 700, 50)
+             
+            
 # Create goalpost instances
 goalpost_left = Goalpost(50, 200, 10, 200)
 goalpost_right = Goalpost(740, 200, 10, 200)
+
 
 # Main game loop
 while True:
@@ -91,11 +94,11 @@ while True:
 
     # Handle character movements (for example, using arrow keys)
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
         player.x -= 2
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] and player.x < width - player.width:  # Check if the character is within the right boundary
         player.x += 2
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] and player.y > 0:  # Check if the character is within the top boundary
         player.y -= 2
     #if keys[pygame.K_DOWN]:
         #player.y += 2
@@ -117,6 +120,11 @@ while True:
     # Adds gravity
     if not player.rect.colliderect(floor.rect):
         player.y += 0.5
+
+    # Check if character reaches the bottom of the screen
+    if player.y > height - player.height:
+        player.y = height - player.height  # Reset the character's y-coordinate to the bottom
+
 
     # Check for win condition (character within a certain distance to goalpost)
     if goalpost_left.distance_to_character(player) < 30 or goalpost_right.distance_to_character(player) < 30:

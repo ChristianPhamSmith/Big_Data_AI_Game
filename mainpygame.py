@@ -151,3 +151,13 @@ while True:
     playerX = player.rect.left
     playerY = player.rect.top
     #print(str(playerX) + ", " + str(playerY))
+
+    # Goal left location input
+    goalpost_leftX = goalpost_left.rect.left - playerX
+    goalpost_leftY = goalpost_left.rect.top - playerY
+    #print(str(goalpost_leftX) + ", " + str(goalpost_leftY))
+    
+    # Goal right location input
+    goalpost_rightX = goalpost_right.rect.left - playerX
+    goalpost_rightY = goalpost_right.rect.top - playerY
+    #print(str(goalpost_rightX) + ", " + str(goalpost_rightY))

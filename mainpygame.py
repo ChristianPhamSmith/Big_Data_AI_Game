@@ -146,3 +146,8 @@ while True:
 
     # Update the display
     pygame.display.flip()
+    
+    # Player location input
+    playerX = player.rect.left
+    playerY = player.rect.top
+    #print(str(playerX) + ", " + str(playerY))

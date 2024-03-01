@@ -161,3 +161,8 @@ while True:
     goalpost_rightX = goalpost_right.rect.left - playerX
     goalpost_rightY = goalpost_right.rect.top - playerY
     #print(str(goalpost_rightX) + ", " + str(goalpost_rightY))
+    
+    # Wall location input
+    wallX = wall.rect.left - playerX
+    wallY = wall.rect.top - playerY
+    #print(str(wallX) + ", " + str(wallY))

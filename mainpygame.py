@@ -147,6 +147,9 @@ while True:
     # Update the display
     pygame.display.flip()
     
+    
+    ## Input layer ##
+    
     # Player location input
     playerX = player.rect.left
     playerY = player.rect.top
@@ -166,3 +169,8 @@ while True:
     wallX = wall.rect.left - playerX
     wallY = wall.rect.top - playerY
     #print(str(wallX) + ", " + str(wallY))
+    
+    # floor location input
+    floorX = floor.rect.left - playerX
+    floorY = floor.rect.top - playerY
+    #print(str(floorX) + ", " + str(floorY))

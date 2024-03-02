@@ -61,16 +61,19 @@ def win_screen():
     text = font.render("You Win!", True, (0, 0, 0))
     screen.blit(text, (width // 2 - text.get_width() // 2, height // 2 - text.get_height() // 2))
     pygame.display.flip()
-    pygame.time.delay(10000)  # Display the win screen for 10000 milliseconds (10 seconds)
+    pygame.time.delay(3000)  # Display the win screen for 10000 milliseconds (10 seconds)
     pygame.quit()
     sys.exit()
 
 # Load animated chracter sprites
-        
+player = pygame.transform.scale(pygame.image.load('assets/fireball_1.png'), (150,150))   
+screen.blit(player, (200,200))
 # Define the dimensions of each frame on the sprite sheet
         
 # Create a list to store individual frames
-        
+frames = ['assets/fireball_1','assets/fireball_2','assets.fireball_3','assets.fireball_4','assets.fireball_5','assets.fireball_6','assets.fireball_7','assets.fireball_8']
+# list is in 'assets folder        
+
 # Create character instance
 player = Character(width - 50, height - 50) 
 

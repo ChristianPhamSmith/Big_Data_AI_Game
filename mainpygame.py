@@ -88,19 +88,29 @@ goalpost_left = Goalpost(50, 200, 10, 200)
 goalpost_right = Goalpost(740, 200, 10, 200)
 
 
+# Characte movement functions
+def moveLeft():
+    player.x -= 2
+def moveRight():
+    player.x += 2
+def moveNowhere():
+    player.x += 0
+
+
 # Main game loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+            
 
     # Handle character movements (for example, using arrow keys)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
-        player.x -= 2
+        moveLeft()
     if keys[pygame.K_RIGHT] and player.x < width - player.width:  # Check if the character is within the right boundary
-        player.x += 2
+        moveRight()
     if keys[pygame.K_UP] and player.y > 0:  # Check if the character is within the top boundary
         player.y -= 2
     #if keys[pygame.K_DOWN]:
@@ -177,3 +187,15 @@ while True:
     floorX = floor.rect.left - playerX
     floorY = floor.rect.top - playerY
     #print(str(floorX) + ", " + str(floorY))
+    
+    ## Hidden Layer ##
+    
+    # This is the hidden layer node for the right goalpost
+    if goalpost_rightX < 100:
+        moveLeft()
+        
+    elif goalpost_rightX >= 100 and goalpost_rightX <= 1000:
+        moveRight()
+        
+    elif goalpost_rightX < 1000:
+        moveNowhere()

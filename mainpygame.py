@@ -103,6 +103,12 @@ def moveNowhere():
 leftXValue = random.randrange(-1280, 1280)
 rightXValue = random.randrange(leftXValue, 1280)
 
+movementValues = [1,2,3]
+movement1 = movementValues[random.randrange(0, 2)]
+movementValues.remove(movement1)
+movement2 = movementValues[random.randrange(0, 1)]
+movementValues.remove(movement2)
+movement3 = movementValues[0]
 
 # Main game loop
 while True:
@@ -200,10 +206,25 @@ while True:
     
     # This is the hidden layer node for the right goalpost
     if goalpost_rightX < leftXValue:
-        moveLeft()
+        if movement1 == 1:
+            moveLeft()
+        elif movement1 == 2:
+            moveRight()
+        elif movement1 == 3:
+            moveNowhere()
         
     elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
-        moveRight()
+        if movement2 == 1:
+            moveLeft()
+        elif movement2 == 2:
+            moveRight()
+        elif movement2 == 3:
+            moveNowhere()
         
     elif goalpost_rightX < rightXValue:
-        moveNowhere()
+        if movement3 == 1:
+            moveLeft()
+        elif movement3 == 2:
+            moveRight()
+        elif movement3 == 3:
+            moveNowhere()

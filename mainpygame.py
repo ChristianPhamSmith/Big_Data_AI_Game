@@ -2,6 +2,7 @@ import pygame
 import sys
 import math
 import random
+import time
 
 # Initialize Pygame
 pygame.init()
@@ -103,6 +104,8 @@ def moveNowhere():
 leftXValue = random.randrange(-1280, 1280)
 rightXValue = random.randrange(leftXValue, 1280)
 
+# This sets a random movement direction for the three possible movements of go left, go right, and go nowhere.
+# 1 = left, 2= right, 3 = nowheres
 movementValues = [1,2,3]
 movement1 = movementValues[random.randrange(0, 2)]
 movementValues.remove(movement1)
@@ -110,14 +113,22 @@ movement2 = movementValues[random.randrange(0, 1)]
 movementValues.remove(movement2)
 movement3 = movementValues[0]
 
+#starts the timer
+start = time.time()
+
 # Main game loop
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or time.time() - start >= 15:
             pygame.quit()
             sys.exit()
-            
-
+    
+    # Checks if the time limit has been reached
+    end = time.time()
+    print(end - start)
+    if end -start >= 15:
+        pygame.quit()
+    
     # Handle character movements (for example, using arrow keys)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary

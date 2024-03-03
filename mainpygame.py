@@ -116,6 +116,13 @@ movement3 = movementValues[0]
 #starts the timer
 start = time.time()
 
+score = None
+
+# This calculates the score
+def scoreCalc(goalX, goalY):
+    return goalX + goalY
+    
+
 # Main game loop
 while True:
     for event in pygame.event.get():
@@ -123,11 +130,6 @@ while True:
             pygame.quit()
             sys.exit()
     
-    # Checks if the time limit has been reached
-    end = time.time()
-    print(end - start)
-    if end -start >= 15:
-        pygame.quit()
     
     # Handle character movements (for example, using arrow keys)
     keys = pygame.key.get_pressed()
@@ -239,3 +241,10 @@ while True:
             moveRight()
         elif movement3 == 3:
             moveNowhere()
+    
+    # Checks if the time limit has been reached and if it has it will print the score and end the game.
+    end = time.time()
+    print(end - start)
+    if end -start >= 15:
+        print(scoreCalc(goalpost_rightX, goalpost_rightY))
+        pygame.quit()

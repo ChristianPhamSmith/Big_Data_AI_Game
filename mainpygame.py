@@ -1,6 +1,7 @@
 import pygame
 import sys
 import math
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -96,6 +97,12 @@ def moveRight():
 def moveNowhere():
     player.x += 0
 
+## Hidden Layer Value Generation ##
+    
+# This generates a random value that the AI will use to define where on the X-axis it should make a specific decision
+leftXValue = random.randrange(-1280, 1280)
+rightXValue = random.randrange(leftXValue, 1280)
+
 
 # Main game loop
 while True:
@@ -188,14 +195,15 @@ while True:
     floorY = floor.rect.top - playerY
     #print(str(floorX) + ", " + str(floorY))
     
+    
     ## Hidden Layer ##
     
     # This is the hidden layer node for the right goalpost
-    if goalpost_rightX < 100:
+    if goalpost_rightX < leftXValue:
         moveLeft()
         
-    elif goalpost_rightX >= 100 and goalpost_rightX <= 1000:
+    elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
         moveRight()
         
-    elif goalpost_rightX < 1000:
+    elif goalpost_rightX < rightXValue:
         moveNowhere()

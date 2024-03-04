@@ -235,37 +235,39 @@ while True:
         
         reset = False
         
+        print(ai[6])
+        print(movement1)
+        
         while reset == False:
-            print(ai)
         
             # This is the hidden layer node for the right goalpost 
-            if goalpost_rightX < leftXValue:
-                if movement1 == 1:
+            if goalpost_rightX < int(ai[6]):
+                if int(ai[3]) == 1:
                     moveLeft()
-                elif movement1 == 2:
+                elif int(ai[3]) == 2:
                     moveRight()
-                elif movement1 == 3:
+                elif int(ai[3]) == 3:
                     moveNowhere()
         
-            elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
-                if movement2 == 1:
+            elif goalpost_rightX >= int(ai[6]) and goalpost_rightX <= int(ai[7]):
+                if int(ai[4]) == 1:
                     moveLeft()
-                elif movement2 == 2:
+                elif int(ai[4]) == 2:
                     moveRight()
-                elif movement2 == 3:
+                elif int(ai[4]) == 3:
                     moveNowhere()
         
-            elif goalpost_rightX < rightXValue:
-                if movement3 == 1:
+            elif goalpost_rightX < int(ai[7]):
+                if int(ai[5]) == 1:
                     moveLeft()
-                elif movement3 == 2:
+                elif int(ai[5]) == 2:
                     moveRight()
-                elif movement3 == 3:
+                elif int(ai[6]) == 3:
                     moveNowhere()
     
             # Checks if the time limit has been reached and if it has it will print the score and end the game.
             end = time.time()
-            print(end - start)
+            #print(end - start)
             if end - start >= 15:
                 print(scoreCalc(goalpost_rightX, goalpost_rightY))
                 player.x = width - 50

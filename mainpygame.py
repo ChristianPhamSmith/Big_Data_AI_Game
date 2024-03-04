@@ -3,6 +3,15 @@ import sys
 import math
 import random
 import time
+import mysql.connector
+
+# This establishes the connection to the mysql server
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="P@$$w0rd",
+    database="ai_data"
+    )
 
 # Initialize Pygame
 pygame.init()
@@ -217,37 +226,49 @@ while True:
     
     ## Hidden Layer ##
     
-    for attemp in range(1000):
-        # This is the hidden layer node for the right goalpost
-        if goalpost_rightX < leftXValue:
-            if movement1 == 1:
-                moveLeft()
-            elif movement1 == 2:
-                moveRight()
-            elif movement1 == 3:
-                moveNowhere()
-        
-        elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
-            if movement2 == 1:
-                moveLeft()
-            elif movement2 == 2:
-                moveRight()
-            elif movement2 == 3:
-                moveNowhere()
-        
-        elif goalpost_rightX < rightXValue:
-            if movement3 == 1:
-                moveLeft()
-            elif movement3 == 2:
-                moveRight()
-            elif movement3 == 3:
-                moveNowhere()
+    # This creates a cursor
+    mycursor = db.cursor()
     
-        # Checks if the time limit has been reached and if it has it will print the score and end the game.
-        end = time.time()
-        print(end - start)
-        if end - start >= 15:
-            print(scoreCalc(goalpost_rightX, goalpost_rightY))
-            player.x = width - 50
-            player.y = height - 50
-            start = time.time()
+    mycursor.execute("SELECT * FROM ai_save")
+    
+    for ai in mycursor:
+        
+        reset = False
+        
+        while reset == False:
+            print(ai)
+        
+            # This is the hidden layer node for the right goalpost 
+            if goalpost_rightX < leftXValue:
+                if movement1 == 1:
+                    moveLeft()
+                elif movement1 == 2:
+                    moveRight()
+                elif movement1 == 3:
+                    moveNowhere()
+        
+            elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
+                if movement2 == 1:
+                    moveLeft()
+                elif movement2 == 2:
+                    moveRight()
+                elif movement2 == 3:
+                    moveNowhere()
+        
+            elif goalpost_rightX < rightXValue:
+                if movement3 == 1:
+                    moveLeft()
+                elif movement3 == 2:
+                    moveRight()
+                elif movement3 == 3:
+                    moveNowhere()
+    
+            # Checks if the time limit has been reached and if it has it will print the score and end the game.
+            end = time.time()
+            print(end - start)
+            if end - start >= 15:
+                print(scoreCalc(goalpost_rightX, goalpost_rightY))
+                player.x = width - 50
+                player.y = height - 50
+                start = time.time()
+                reset = True

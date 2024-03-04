@@ -126,7 +126,7 @@ def scoreCalc(goalX, goalY):
 # Main game loop
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or time.time() - start >= 15:
+        if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
     
@@ -217,34 +217,37 @@ while True:
     
     ## Hidden Layer ##
     
-    # This is the hidden layer node for the right goalpost
-    if goalpost_rightX < leftXValue:
-        if movement1 == 1:
-            moveLeft()
-        elif movement1 == 2:
-            moveRight()
-        elif movement1 == 3:
-            moveNowhere()
+    for attemp in range(1000):
+        # This is the hidden layer node for the right goalpost
+        if goalpost_rightX < leftXValue:
+            if movement1 == 1:
+                moveLeft()
+            elif movement1 == 2:
+                moveRight()
+            elif movement1 == 3:
+                moveNowhere()
         
-    elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
-        if movement2 == 1:
-            moveLeft()
-        elif movement2 == 2:
-            moveRight()
-        elif movement2 == 3:
-            moveNowhere()
+        elif goalpost_rightX >= leftXValue and goalpost_rightX <= rightXValue:
+            if movement2 == 1:
+                moveLeft()
+            elif movement2 == 2:
+                moveRight()
+            elif movement2 == 3:
+                moveNowhere()
         
-    elif goalpost_rightX < rightXValue:
-        if movement3 == 1:
-            moveLeft()
-        elif movement3 == 2:
-            moveRight()
-        elif movement3 == 3:
-            moveNowhere()
+        elif goalpost_rightX < rightXValue:
+            if movement3 == 1:
+                moveLeft()
+            elif movement3 == 2:
+                moveRight()
+            elif movement3 == 3:
+                moveNowhere()
     
-    # Checks if the time limit has been reached and if it has it will print the score and end the game.
-    end = time.time()
-    print(end - start)
-    if end -start >= 15:
-        print(scoreCalc(goalpost_rightX, goalpost_rightY))
-        pygame.quit()
+        # Checks if the time limit has been reached and if it has it will print the score and end the game.
+        end = time.time()
+        print(end - start)
+        if end - start >= 15:
+            print(scoreCalc(goalpost_rightX, goalpost_rightY))
+            player.x = width - 50
+            player.y = height - 50
+            start = time.time()

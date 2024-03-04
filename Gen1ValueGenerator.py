@@ -19,9 +19,9 @@ for ai in range(1000):
     # This sets a random movement direction for the three possible movements of go left, go right, and go nowhere.
     # 1 = left, 2= right, 3 = nowheres
     movementValues = [1,2,3]
-    movement1 = movementValues[random.randrange(0, 2)]
+    movement1 = movementValues[random.randrange(0, 3)]
     movementValues.remove(movement1)
-    movement2 = movementValues[random.randrange(0, 1)]
+    movement2 = movementValues[random.randrange(0, 2)]
     movementValues.remove(movement2)
     movement3 = movementValues[0]
     

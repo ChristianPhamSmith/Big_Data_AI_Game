@@ -1,4 +1,14 @@
 import random
+import mysql.connector
+
+# This establishes the connection to the mysql server
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="P@$$w0rd",
+    database="ai_data"
+    )
+
 ## Hidden Layer 1st Gen Value Generation ##
 
 for ai in range(1000):
@@ -15,4 +25,15 @@ for ai in range(1000):
     movementValues.remove(movement2)
     movement3 = movementValues[0]
     
+    # This creates a cursor
+    mycursor = db.cursor()
+    
+    # This puts an SQL insert statement into the cursor
+    mycursor.execute(f"INSERT INTO ai_save (generation, score, movement1, movement2, movement3, leftXValue, rightXValue) VALUES (1, 9000, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue})")
+    
+    # This commits the statement into the database
+    db.commit()
+    
+    print("AI " + str(ai) + " created")
+
 print("Done!")

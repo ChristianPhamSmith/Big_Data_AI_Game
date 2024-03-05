@@ -136,10 +136,15 @@ mycursor = db.cursor()
     
 mycursor.execute("SELECT * FROM ai_save")
 
+aiNumber = 0
+
 # Main game loop
 while True:
     
     for ai in mycursor:
+        
+        aiNumber += 1
+        print("AI #" + str(aiNumber) + " is playing the game")
         
         reset = False
         
@@ -247,7 +252,6 @@ while True:
                 elif int(ai[3]) == 2:
                     moveRight()
                 elif int(ai[3]) == 3:
-                    print("Here")
                     moveNowhere()
         
             elif goalpost_rightX >= int(ai[6]) and goalpost_rightX <= int(ai[7]):

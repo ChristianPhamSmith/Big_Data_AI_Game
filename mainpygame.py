@@ -134,7 +134,7 @@ def scoreCalc(goalX, goalY):
 # This creates a cursor
 mycursor = db.cursor()
     
-mycursor.execute("SELECT * FROM ai_save")
+mycursor.execute("SELECT * FROM ai_save LIMIT 20")
 
 aiNumber = 0
 

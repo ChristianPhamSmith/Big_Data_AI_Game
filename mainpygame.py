@@ -129,7 +129,7 @@ score = None
 
 # This calculates the score
 def scoreCalc(goalX, goalY):
-    return goalX + goalY
+    return abs(goalX + goalY)
     
 # This creates a cursor
 mycursor = db.cursor()
@@ -274,7 +274,7 @@ while True:
             end = time.time()
             #print(end - start)
             if end - start >= 15:
-                print(scoreCalc(goalpost_rightX, goalpost_rightY))
+                print("AI #" + str(aiNumber) + " scored: " + str(scoreCalc(goalpost_rightX, goalpost_rightY)))
                 player.x = width - 50
                 player.y = height - 50
                 start = time.time()

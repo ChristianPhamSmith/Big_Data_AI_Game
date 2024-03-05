@@ -131,114 +131,114 @@ score = None
 def scoreCalc(goalX, goalY):
     return goalX + goalY
     
+# This creates a cursor
+mycursor = db.cursor()
+    
+mycursor.execute("SELECT * FROM ai_save")
 
 # Main game loop
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-    
-    
-    # Handle character movements (for example, using arrow keys)
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
-        moveLeft()
-    if keys[pygame.K_RIGHT] and player.x < width - player.width:  # Check if the character is within the right boundary
-        moveRight()
-    if keys[pygame.K_UP] and player.y > 0:  # Check if the character is within the top boundary
-        player.y -= 2
-    #if keys[pygame.K_DOWN]:
-        #player.y += 2
-    
-    
-    # Update character's rect for collision detection
-    player.rect = pygame.Rect(player.x, player.y, player.width, player.height)
-
-    # Check for collision between character and wall
-    if player.rect.colliderect(wall.rect):
-        # If collision occurs, adjust character position to prevent overlap
-        if keys[pygame.K_LEFT]:
-            player.x = wall.rect.right
-        elif keys[pygame.K_RIGHT]:
-            player.x = wall.rect.left
-        elif keys[pygame.K_UP]:
-            player.y = wall.rect.bottom
-            
-    # Adds gravity
-    if not player.rect.colliderect(floor.rect):
-        player.y += 0.5
-
-    # Check if character reaches the bottom of the screen
-    if player.y > height - player.height:
-        player.y = height - player.height  # Reset the character's y-coordinate to the bottom
-
-
-    # Check for win condition (character within a certain distance to goalpost)
-    if goalpost_left.distance_to_character(player) < 30 or goalpost_right.distance_to_character(player) < 30:
-        win_screen()
-
-    # Clear the screen
-    screen.fill((255, 255, 255))  # White background
-
-    # Draw the walls
-    wall.draw(screen)
-    floor.draw(screen)
-
-    # Draw the goalposts
-    goalpost_left.draw(screen)
-    goalpost_right.draw(screen)
-
-    # Draw the character
-    player.draw()
-
-    # Update the display
-    pygame.display.flip()
-    
-    
-    ## Input layer ##
-    
-    # Player location input
-    playerX = player.rect.left
-    playerY = player.rect.top
-    #print(str(playerX) + ", " + str(playerY))
-
-    # Goal left location input
-    goalpost_leftX = goalpost_left.rect.left - playerX
-    goalpost_leftY = goalpost_left.rect.top - playerY
-    #print(str(goalpost_leftX) + ", " + str(goalpost_leftY))
-    
-    # Goal right location input
-    goalpost_rightX = goalpost_right.rect.left - playerX
-    goalpost_rightY = goalpost_right.rect.top - playerY
-    #print(str(goalpost_rightX) + ", " + str(goalpost_rightY))
-    
-    # Wall location input
-    wallX = wall.rect.left - playerX
-    wallY = wall.rect.top - playerY
-    #print(str(wallX) + ", " + str(wallY))
-    
-    # floor location input
-    floorX = floor.rect.left - playerX
-    floorY = floor.rect.top - playerY
-    #print(str(floorX) + ", " + str(floorY))
-    
-    
-    ## Hidden Layer ##
-    
-    # This creates a cursor
-    mycursor = db.cursor()
-    
-    mycursor.execute("SELECT * FROM ai_save")
     
     for ai in mycursor:
         
         reset = False
         
-        print(ai[6])
-        print(movement1)
-        
         while reset == False:
+    
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+    
+    
+            # Handle character movements (for example, using arrow keys)
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
+                moveLeft()
+            if keys[pygame.K_RIGHT] and player.x < width - player.width:  # Check if the character is within the right boundary
+                moveRight()
+            if keys[pygame.K_UP] and player.y > 0:  # Check if the character is within the top boundary
+                player.y -= 2
+            #if keys[pygame.K_DOWN]:
+                #player.y += 2
+    
+    
+            # Update character's rect for collision detection
+            player.rect = pygame.Rect(player.x, player.y, player.width, player.height)
+
+            # Check for collision between character and wall
+            if player.rect.colliderect(wall.rect):
+                # If collision occurs, adjust character position to prevent overlap
+                if keys[pygame.K_LEFT]:
+                    player.x = wall.rect.right
+                elif keys[pygame.K_RIGHT]:
+                    player.x = wall.rect.left
+                elif keys[pygame.K_UP]:
+                    player.y = wall.rect.bottom
+            
+            # Adds gravity
+            if not player.rect.colliderect(floor.rect):
+                player.y += 0.5
+
+            # Check if character reaches the bottom of the screen
+            if player.y > height - player.height:
+                player.y = height - player.height  # Reset the character's y-coordinate to the bottom
+
+
+            # Check for win condition (character within a certain distance to goalpost)
+            if goalpost_left.distance_to_character(player) < 30 or goalpost_right.distance_to_character(player) < 30:
+                win_screen()
+
+            # Clear the screen
+            screen.fill((255, 255, 255))  # White background
+
+            # Draw the walls
+            wall.draw(screen)
+            floor.draw(screen)
+
+            # Draw the goalposts
+            goalpost_left.draw(screen)
+            goalpost_right.draw(screen)
+
+            # Draw the character
+            player.draw()
+
+            # Update the display
+            pygame.display.flip()
+    
+    
+            ## Input layer ##
+    
+            # Player location input
+            playerX = player.rect.left
+            playerY = player.rect.top
+            #print(str(playerX) + ", " + str(playerY))
+
+            # Goal left location input
+            goalpost_leftX = goalpost_left.rect.left - playerX
+            goalpost_leftY = goalpost_left.rect.top - playerY
+            #print(str(goalpost_leftX) + ", " + str(goalpost_leftY))
+    
+            # Goal right location input
+            goalpost_rightX = goalpost_right.rect.left - playerX
+            goalpost_rightY = goalpost_right.rect.top - playerY
+            #print(str(goalpost_rightX) + ", " + str(goalpost_rightY))
+    
+            # Wall location input
+            wallX = wall.rect.left - playerX
+            wallY = wall.rect.top - playerY
+            #print(str(wallX) + ", " + str(wallY))
+    
+            # floor location input
+            floorX = floor.rect.left - playerX
+            floorY = floor.rect.top - playerY
+            #print(str(floorX) + ", " + str(floorY))
+    
+    
+            ## Hidden Layer ##
+    
+    
+    # end #
         
             # This is the hidden layer node for the right goalpost 
             if goalpost_rightX < int(ai[6]):
@@ -247,6 +247,7 @@ while True:
                 elif int(ai[3]) == 2:
                     moveRight()
                 elif int(ai[3]) == 3:
+                    print("Here")
                     moveNowhere()
         
             elif goalpost_rightX >= int(ai[6]) and goalpost_rightX <= int(ai[7]):

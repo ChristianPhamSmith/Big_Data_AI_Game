@@ -243,9 +243,7 @@ while True:
     
     
             ## Hidden Layer ##
-    
-    
-    # end #
+            
         
             # This is the hidden layer node for the right goalpost 
             if goalpost_rightX < int(ai[6]):
@@ -289,3 +287,8 @@ while True:
                 player.y = height - 50
                 start = time.time()
                 reset = True
+    for ai in sorted(topTen.items(), key=lambda x: x[1], reverse=False)[:10]:
+        idNumber = ai[0]
+        mycursor.execute(f"SELECT * FROM ai_save WHERE id = {idNumber}")
+        for i in mycursor:
+            print(i)

@@ -138,6 +138,8 @@ mycursor.execute("SELECT * FROM ai_save")
 
 aiNumber = 0
 
+topTen = {}
+
 # Main game loop
 while True:
     
@@ -273,8 +275,16 @@ while True:
             # Checks if the time limit has been reached and if it has it will print the score and end the game.
             end = time.time()
             #print(end - start)
-            if end - start >= 15:
+            if end - start >= 10:
+                #prints the AI's score
                 print("AI #" + str(aiNumber) + " scored: " + str(scoreCalc(goalpost_rightX, goalpost_rightY)))
+                
+                # Adds the AI's id and score to the topTen dictionary
+                topTen.update({ai[0]:scoreCalc(goalpost_rightX, goalpost_rightY)})
+                # Prints the topTen AI's scores
+                print(sorted(topTen.items(), key=lambda x: x[1], reverse=False)[:10])
+                
+                # Resets the player
                 player.x = width - 50
                 player.y = height - 50
                 start = time.time()

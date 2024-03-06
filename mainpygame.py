@@ -113,15 +113,6 @@ def moveNowhere():
 leftXValue = random.randrange(-1280, 1280)
 rightXValue = random.randrange(leftXValue, 1280)
 
-# This sets a random movement direction for the three possible movements of go left, go right, and go nowhere.
-# 1 = left, 2= right, 3 = nowheres
-movementValues = [1,2,3]
-movement1 = movementValues[random.randrange(0, 2)]
-movementValues.remove(movement1)
-movement2 = movementValues[random.randrange(0, 1)]
-movementValues.remove(movement2)
-movement3 = movementValues[0]
-
 #starts the timer
 start = time.time()
 
@@ -132,12 +123,21 @@ def scoreCalc(goalX, goalY):
     return abs(goalX + goalY)
 
 # This generated a random number to decide if each movement variable should mutate
-def movementDice():
+def mutationDice():
     number = random.randrange(1, 10)
     if number > 8:
         return True
     if number <= 8:
         return False
+
+# These are here so that these variables exist for when creating new AIs
+generation = 1
+score = None
+movement1 = None
+movement2 = None
+movement3 = None
+leftXValue = None
+rightXValue = None
     
 # This creates a cursor
 mycursor = db.cursor()
@@ -295,9 +295,29 @@ while True:
                 player.y = height - 50
                 start = time.time()
                 reset = True
-    for ai in sorted(topTen.items(), key=lambda x: x[1], reverse=False)[:10]:
-        idNumber = ai[0]
+    for survivor in sorted(topTen.items(), key=lambda x: x[1], reverse=False)[:10]:
+        idNumber = survivor[0]
         mycursor.execute(f"SELECT * FROM ai_save WHERE id = {idNumber}")
-        for i in mycursor:
-            print(i)
-            print(movementDice())
+        for ai in mycursor:
+            print(ai)
+            for child in range(10):
+                generation += ai[1]
+                score = 9000
+                movement1 = ai[3]
+                movement2 = ai[4]
+                movement3 = ai[5]
+                leftXValue = ai[6]
+                rightXValue = ai[7]
+                if mutationDice() == True:
+                    movement1 = random.randrange(1,3)
+                if mutationDice() == True:
+                    movement2 = random.randrange(1,3)
+                if mutationDice() == True:
+                    movement3 = random.randrange(1,3)
+                if mutationDice() == True:
+                    leftXValue = random.randrange(-1280, rightXValue)
+                if mutationDice() == True:
+                    rightXValue = random.randrange(leftXValue, 1280)
+                    
+                print(generation, score, movement1, movement2, movement3, leftXValue, rightXValue)
+                    

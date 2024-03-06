@@ -155,9 +155,11 @@ while True:
     aiGeneration += 1
     
     #Selects the AIs for that are in the latest generation
-    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration} LIMIT 20")
+    # If you are testing or changing things with the AI I recomend that you write LIMIT 20 at the end of the SQL statement
+    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration}")
+    aiSaveData = mycursor.fetchall()
     
-    for ai in mycursor:
+    for ai in aiSaveData:
         
         aiNumber += 1
         print("AI #" + str(aiNumber) + " is playing the game")
@@ -288,13 +290,20 @@ while True:
             end = time.time()
             #print(end - start)
             if end - start >= 10:
+                
+                score = scoreCalc(goalpost_rightX, goalpost_rightY)
+                aiID = ai[0]
+                
                 #prints the AI's score
-                print("AI #" + str(aiNumber) + " scored: " + str(scoreCalc(goalpost_rightX, goalpost_rightY)))
+                print("AI #" + str(aiNumber) + " scored: " + str(score))
                 
                 # Adds the AI's id and score to the topTen dictionary
-                topTen.update({ai[0]:scoreCalc(goalpost_rightX, goalpost_rightY)})
+                topTen.update({aiID:score})
                 # Prints the topTen AI's scores
                 print(sorted(topTen.items(), key=lambda x: x[1], reverse=False)[:10])
+                # Updates each AI so that they have a real score
+                mycursor.execute(f"UPDATE ai_save SET score = {score} WHERE id = {aiID}")
+                db.commit()
                 
                 # Resets the player
                 player.x = width - 50
@@ -305,10 +314,11 @@ while True:
         idNumber = survivor[0]
         mycursor.execute(f"SELECT * FROM ai_save WHERE id = {idNumber}")
         survivorData = mycursor
+        
         for ai in survivorData:
             print(ai)
-            for child in range(1000):
-                generation += ai[1]
+            for child in range(100):
+                generation = ai[1] + 1
                 score = 9000
                 movement1 = ai[3]
                 movement2 = ai[4]
@@ -325,6 +335,11 @@ while True:
                     leftXValue = random.randrange(-1280, rightXValue)
                 if mutationDice() == True:
                     rightXValue = random.randrange(leftXValue, 1280)
+                
+                # This inserts the AI children into the database
+                mycursor.execute(f"INSERT INTO ai_save (Generation, score, movement1, movement2, movement3, leftXValue, rightXValue) VALUES ({generation}, {score}, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue})")
+                
+                db.commit()
                     
                 print(generation, score, movement1, movement2, movement3, leftXValue, rightXValue)
                     

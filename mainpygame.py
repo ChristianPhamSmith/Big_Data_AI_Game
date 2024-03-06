@@ -142,14 +142,20 @@ rightXValue = None
 # This creates a cursor
 mycursor = db.cursor()
     
-mycursor.execute("SELECT * FROM ai_save LIMIT 20")
+
 
 aiNumber = 0
+aiGeneration = 0
 
 topTen = {}
 
 # Main game loop
 while True:
+    
+    aiGeneration += 1
+    
+    #Selects the AIs for that are in the latest generation
+    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration} LIMIT 20")
     
     for ai in mycursor:
         
@@ -298,9 +304,10 @@ while True:
     for survivor in sorted(topTen.items(), key=lambda x: x[1], reverse=False)[:10]:
         idNumber = survivor[0]
         mycursor.execute(f"SELECT * FROM ai_save WHERE id = {idNumber}")
-        for ai in mycursor:
+        survivorData = mycursor
+        for ai in survivorData:
             print(ai)
-            for child in range(10):
+            for child in range(1000):
                 generation += ai[1]
                 score = 9000
                 movement1 = ai[3]

@@ -130,6 +130,14 @@ score = None
 # This calculates the score
 def scoreCalc(goalX, goalY):
     return abs(goalX + goalY)
+
+# This generated a random number to decide if each movement variable should mutate
+def movementDice():
+    number = random.randrange(1, 10)
+    if number > 8:
+        return True
+    if number <= 8:
+        return False
     
 # This creates a cursor
 mycursor = db.cursor()
@@ -292,3 +300,4 @@ while True:
         mycursor.execute(f"SELECT * FROM ai_save WHERE id = {idNumber}")
         for i in mycursor:
             print(i)
+            print(movementDice())

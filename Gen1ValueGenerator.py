@@ -25,11 +25,15 @@ for ai in range(1000):
     movementValues.remove(movement2)
     movement3 = movementValues[0]
     
+    jump1 = random.randrange(0, 2)
+    jump2 = random.randrange(0, 2)
+    jump3 = random.randrange(0, 2)
+    
     # This creates a cursor
     mycursor = db.cursor()
     
     # This puts an SQL insert statement into the cursor
-    mycursor.execute(f"INSERT INTO ai_save (generation, score, movement1, movement2, movement3, leftXValue, rightXValue) VALUES (1, 9000, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue})")
+    mycursor.execute(f"INSERT INTO ai_save (generation, score, movement1, movement2, movement3, leftXValue, rightXValue, jump1, jump2, jump3) VALUES (1, 9000, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue}, {jump1}, {jump2}, {jump3})")
     
     # This commits the statement into the database
     db.commit()

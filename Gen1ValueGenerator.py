@@ -27,8 +27,9 @@ for ai in range(1000):
     midRightJump = random.randrange(nearRightJump, 1279)
     farRightJump = random.randrange(midRightJump, 1280)
 
-    # This sets a random movement direction for the three possible movements of go left, go right, and go nowhere.
-    # 1 = left, 2= right, 3 = nowheres
+    # This sets a random movement direction for the three possible movements of go left, go right, and go nowhere
+    # 1 = left, 2 = right, 3 = nowheres
+    # movement1 = left zone, movement2 = center zone, movement3 = right zone
     movementValues = [1,2,3]
     movement1 = movementValues[random.randrange(0, 3)]
     movementValues.remove(movement1)
@@ -36,6 +37,9 @@ for ai in range(1000):
     movementValues.remove(movement2)
     movement3 = movementValues[0]
     
+    # This sets the jump values to randomly be set to either 1 or 0
+    # 0 = no jump, 1 = jump
+    # jump1 = nearLeftJump, jump2 = midLeftJump, jump3 = farLeftJump, jump4 = nearRightJump, jump5 = midRightJump, jump6 = farRightJump, jump7 = centerJump
     jump1 = random.randrange(0, 2)
     jump2 = random.randrange(0, 2)
     jump3 = random.randrange(0, 2)
@@ -44,15 +48,17 @@ for ai in range(1000):
     jump6 = random.randrange(0, 2)
     jump7 = random.randrange(0, 2)
     
-    # This creates a cursor
+    # This creates a cursor that is used to access the data in the database
     mycursor = db.cursor()
     
-    # This puts an SQL insert statement into the cursor
+    # This puts an SQL insert statement into the cursor that inserts the AI values into the ai_save table
     mycursor.execute(f"INSERT INTO ai_save (generation, score, movement1, movement2, movement3, leftXValue, rightXValue, jump1, jump2, jump3, jump4, jump5, jump6, nearLeftJump, midLeftJump, farLeftJump, nearRightJump, midRightJump, farRightJump, jump7) VALUES (1, 9000, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue}, {jump1}, {jump2}, {jump3}, {jump4}, {jump5}, {jump6}, {nearLeftJump}, {midLeftJump}, {farLeftJump}, {nearRightJump}, {midRightJump}, {farRightJump}, {jump7})")
     
     # This commits the statement into the database
     db.commit()
     
-    print("AI " + str(ai) + " created")
+    # This is a print statement that tells you which ai was just created
+    print("AI " + str(ai + 1) + " created")
 
+# This informs the user that the AI is done generating
 print("Done!")

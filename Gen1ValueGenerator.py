@@ -30,12 +30,9 @@ for ai in range(1000):
     # This sets a random movement direction for the three possible movements of go left, go right, and go nowhere
     # 1 = left, 2 = right, 3 = nowheres
     # movement1 = left zone, movement2 = center zone, movement3 = right zone
-    movementValues = [1,2,3]
-    movement1 = movementValues[random.randrange(0, 3)]
-    movementValues.remove(movement1)
-    movement2 = movementValues[random.randrange(0, 2)]
-    movementValues.remove(movement2)
-    movement3 = movementValues[0]
+    movement1 = random.randrange(0, 3)
+    movement2 = random.randrange(0, 3)
+    movement3 = random.randrange(0, 3)
     
     # This sets the jump values to randomly be set to either 1 or 0
     # 0 = no jump, 1 = jump

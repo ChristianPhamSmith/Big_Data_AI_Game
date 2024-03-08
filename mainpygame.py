@@ -159,7 +159,7 @@ while True:
     
     #Selects the AIs for that are in the latest generation
     # If you are testing or changing things with the AI I recomend that you write LIMIT 20 at the end of the SQL statement
-    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration}")
+    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration} LIMIT 20")
     aiSaveData = mycursor.fetchall()
     
     for ai in aiSaveData:
@@ -365,6 +365,20 @@ while True:
                 movement3 = ai[5]
                 leftXValue = ai[6]
                 rightXValue = ai[7]
+                jump1 = ai[8]
+                jump2 = ai[9]
+                jump3 = ai[10]
+                jump4 = ai[11]
+                jump5 = ai[12]
+                jump6 = ai[13]
+                jump7 = ai[20]
+                nearLeftJump = ai[14]
+                midLeftJump = ai[15]
+                farLeftJump = ai[16]
+                nearRightJump = ai[17]
+                midRightJump = ai[18]
+                farRightJump = ai[19]
+                
                 if mutationDice() == True:
                     movement1 = random.randrange(1,3)
                 if mutationDice() == True:
@@ -375,9 +389,40 @@ while True:
                     leftXValue = random.randrange(-1280, rightXValue)
                 if mutationDice() == True:
                     rightXValue = random.randrange(leftXValue, 1280)
+                if mutationDice() == True:
+                    jump1 = random.randrange(0,2)
+                if mutationDice() == True:
+                    jump2 = random.randrange(0,2)
+                if mutationDice() == True:
+                    jump3 = random.randrange(0,2)
+                if mutationDice() == True:
+                    jump4 = random.randrange(0,2)
+                if mutationDice() == True:
+                    jump5 = random.randrange(0,2)
+                if mutationDice() == True:
+                    jump6 = random.randrange(0,2)
+                if mutationDice() == True:
+                    jump7 = random.randrange(0,2)
+                if mutationDice() == True:
+                    nearLeftJump = random.randrange(midLeftJump, 0)
+                if mutationDice() == True:
+                    midLeftJump = random.randrange(farLeftJump, nearLeftJump)
+                if mutationDice() == True:
+                    farLeftJump = random.randrange(-1280, midLeftJump)
+                if mutationDice() == True:
+                    if nearLeftJump == 0:
+                        nearRightJump = random.randrange(1, midRightJump)
+                    else:
+                        nearRightJump = random.randrange(0, midRightJump)
+                if mutationDice() == True:
+                    midRightJump = random.randrange(nearRightJump, farRightJump)
+                if mutationDice() == True:
+                    farRightJump = random.randrange(midRightJump, 1280)
+                    
+                
                 
                 # This inserts the AI children into the database
-                mycursor.execute(f"INSERT INTO ai_save (Generation, score, movement1, movement2, movement3, leftXValue, rightXValue) VALUES ({generation}, {score}, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue})")
+                mycursor.execute(f"INSERT INTO ai_save (Generation, score, movement1, movement2, movement3, leftXValue, rightXValue, jump1, jump2, jump3, jump4, jump5, jump6, jump7, nearLeftJump, midLeftJump, farLeftJump, nearRightJump, midRightJump, farRightJump) VALUES ({generation}, {score}, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue}, {jump1}, {jump2}, {jump3}, {jump4}, {jump5}, {jump6}, {jump7}, {nearLeftJump}, {midLeftJump}, {farLeftJump}, {nearRightJump}, {midRightJump}, {farRightJump})")
                 
                 db.commit()
                     

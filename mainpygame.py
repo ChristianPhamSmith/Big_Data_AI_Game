@@ -101,9 +101,9 @@ goalpost_right = Goalpost(740, 200, 10, 200)
 
 # Characte movement functions
 def moveLeft():
-    player.x -= 2
+    player.x -= 1
 def moveRight():
-    player.x += 2
+    player.x += 1
 def moveNowhere():
     player.x += 0
 

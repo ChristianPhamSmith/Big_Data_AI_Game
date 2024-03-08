@@ -107,6 +107,9 @@ def moveRight():
 def moveNowhere():
     player.x += 0
 
+jumpHeight = 10000000
+jumping = False
+
 ## Hidden Layer Value Generation ##
     
 # This generates a random value that the AI will use to define where on the X-axis it should make a specific decision
@@ -173,17 +176,26 @@ while True:
                     pygame.quit()
                     sys.exit()
     
-    
+            print(jumping)
             # Handle character movements (for example, using arrow keys)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
                 moveLeft()
             if keys[pygame.K_RIGHT] and player.x < width - player.width:  # Check if the character is within the right boundary
                 moveRight()
-            if keys[pygame.K_UP] and player.y > 0:  # Check if the character is within the top boundary
-                player.y -= 2
-            #if keys[pygame.K_DOWN]:
-                #player.y += 2
+            if keys[pygame.K_UP] and player.y > 0 and jumping == False:  # Check if the character is within the top boundary
+                jumpHeight = player.y - 200
+                jumping = True
+            
+            # When jumping the player goes up intil they reach the jump height and then the jump height is reset so that gravity can bring the player down
+            if jumping == True and player.y > jumpHeight:
+                player.y -= 1.3
+            elif jumping == True and player.y <= jumpHeight:
+                jumpHeight = 2000
+            
+            # Checks if player is no longer jumping so that jumping can be set to false
+            if player.y == 670:
+                jumping = False
     
     
             # Update character's rect for collision detection

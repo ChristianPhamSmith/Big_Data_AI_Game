@@ -34,9 +34,18 @@ CREATE TABLE `ai_save` (
   `jump1` int DEFAULT NULL,
   `jump2` int DEFAULT NULL,
   `jump3` int DEFAULT NULL,
+  `jump4` int DEFAULT NULL,
+  `jump5` int DEFAULT NULL,
+  `jump6` int DEFAULT NULL,
+  `nearLeftJump` int DEFAULT NULL,
+  `midLeftJump` int DEFAULT NULL,
+  `farLeftJump` int DEFAULT NULL,
+  `nearRightJump` int DEFAULT NULL,
+  `midRightJump` int DEFAULT NULL,
+  `farRightJump` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8398 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11398 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -57,4 +66,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-07 17:14:37
+-- Dump completed on 2024-03-07 19:18:08

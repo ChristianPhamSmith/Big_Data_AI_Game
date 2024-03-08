@@ -42,12 +42,13 @@ for ai in range(1000):
     jump4 = random.randrange(0, 2)
     jump5 = random.randrange(0, 2)
     jump6 = random.randrange(0, 2)
+    jump7 = random.randrange(0, 2)
     
     # This creates a cursor
     mycursor = db.cursor()
     
     # This puts an SQL insert statement into the cursor
-    mycursor.execute(f"INSERT INTO ai_save (generation, score, movement1, movement2, movement3, leftXValue, rightXValue, jump1, jump2, jump3, jump4, jump5, jump6, nearLeftJump, midLeftJump, farLeftJump, nearRightJump, midRightJump, farRightJump) VALUES (1, 9000, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue}, {jump1}, {jump2}, {jump3}, {jump4}, {jump5}, {jump6}, {nearLeftJump}, {midLeftJump}, {farLeftJump}, {nearRightJump}, {midRightJump}, {farRightJump})")
+    mycursor.execute(f"INSERT INTO ai_save (generation, score, movement1, movement2, movement3, leftXValue, rightXValue, jump1, jump2, jump3, jump4, jump5, jump6, nearLeftJump, midLeftJump, farLeftJump, nearRightJump, midRightJump, farRightJump, jump7) VALUES (1, 9000, {movement1}, {movement2}, {movement3}, {leftXValue}, {rightXValue}, {jump1}, {jump2}, {jump3}, {jump4}, {jump5}, {jump6}, {nearLeftJump}, {midLeftJump}, {farLeftJump}, {nearRightJump}, {midRightJump}, {farRightJump}, {jump7})")
     
     # This commits the statement into the database
     db.commit()

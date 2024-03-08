@@ -9,21 +9,21 @@ db = mysql.connector.connect(
     database="ai_data"
     )
 
-## Hidden Layer 1st Gen Value Generation ##
+## 1st Gen Value Generation ##
 
+
+# This for loop is used to generate each AI. It is currentlly set to generate 1000 AIs
 for ai in range(1000):
-    # This generates a random value that the AI will use to define where on the X-axis it should make a specific decision
+    # The X-values are the points on the X-axis that the AI uses to create zones where the AI will make movement decisions based on if the goal post is within that zone
     leftXValue = random.randrange(-1280, 1280)
     rightXValue = random.randrange(leftXValue, 1280)
     
-    
-    nearLeftJump = random.randrange(-1278, 0)
+    # These left and right jump points are like the X-values above but for jumping
+    # There are more of them and they are supposed to be to the left and right of the player so that the AI can be more precise in its descision making
+    nearLeftJump = random.randrange(-1278, 1)
     midLeftJump = random.randrange(-1279, nearLeftJump)
     farLeftJump = random.randrange(-1280, midLeftJump)
-    if nearLeftJump == 0:
-        nearRightJump = random.randrange(1, 1278)
-    else:
-        nearRightJump = random.randrange(0, 1278)
+    nearRightJump = random.randrange(1, 1278)
     midRightJump = random.randrange(nearRightJump, 1279)
     farRightJump = random.randrange(midRightJump, 1280)
 

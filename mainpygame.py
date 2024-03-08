@@ -176,7 +176,6 @@ while True:
                     pygame.quit()
                     sys.exit()
     
-            print(jumping)
             # Handle character movements (for example, using arrow keys)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
@@ -290,13 +289,42 @@ while True:
                 elif int(ai[4]) == 3:
                     moveNowhere()
         
-            elif goalpost_rightX < int(ai[7]):
+            elif goalpost_rightX > int(ai[7]):
                 if int(ai[5]) == 1:
                     moveLeft()
                 elif int(ai[5]) == 2:
                     moveRight()
                 elif int(ai[6]) == 3:
                     moveNowhere()
+                    
+            # Far Left
+            if goalpost_rightX >= int(ai[16]) and int(ai[10]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
+            # Mid Left
+            if goalpost_rightX < int(ai[16]) and goalpost_rightX >= int(ai[15]) and int(ai[9]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
+            # Near Left
+            if goalpost_rightX < int(ai[15]) and goalpost_rightX >= int(ai[14]) and int(ai[8]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
+            # Center
+            if goalpost_rightX < int(ai[14]) and goalpost_rightX >= int(ai[17]) and int(ai[20]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
+            # Near Right
+            if goalpost_rightX < int(ai[17]) and goalpost_rightX >= int(ai[18]) and int(ai[11]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
+            # Mid Right
+            if goalpost_rightX < int(ai[18]) and goalpost_rightX >= int(ai[19]) and int(ai[12]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
+            # Far Right
+            if goalpost_rightX < int(ai[19]) and int(ai[12]) == 1 and jumping == False:
+                jumpHeight = player.y - 200
+                jumping = True
     
             # Checks if the time limit has been reached and if it has it will print the score and end the game.
             end = time.time()

@@ -111,7 +111,7 @@ frames = ['assets/fireball_1','assets/fireball_2','assets.fireball_3','assets.fi
 # list is in 'assets folder        
 
 # Create character instance
-player = Character(width - 50, height - 50) 
+player = Character(0, height - 50) 
 
 # Create a wall instance
 wall = Wall(200, 200, 50, 200)
@@ -195,12 +195,12 @@ while True:
         reset = False
         
         while reset == False:
-    
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-    
+            print(player.x)
             # Handle character movements (for example, using arrow keys)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
@@ -371,7 +371,7 @@ while True:
                 db.commit()
                 
                 # Resets the player
-                player.x = width - 50
+                player.x = 0
                 player.y = height - 50
                 start = time.time()
                 reset = True

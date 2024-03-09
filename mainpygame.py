@@ -13,13 +13,29 @@ db = mysql.connector.connect(
     database="ai_data"
     )
 
-# Initialize Pygame
-pygame.init()
 
 # setup the display
 width, height = 1280, 720
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("JoinTheClub")
+
+#charachterAnimation
+class CharacterAnimation:
+    def __init__(self, frames, frame_duration=100):
+        self.frames = frames
+        self.frame_index = 0
+        self.frame_duration = frame_duration
+        self.last_frame_time = pygame.time.get_ticks()
+
+    def update(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_frame_time > self.frame_duration:
+            self.frame_index = (self.frame_index + 1) % len(self.frames)
+            self.last_frame_time = current_time
+
+    def get_current_frame(self):
+        return self.frames[self.frame_index]
+
 
 # Character class
 class Character:
@@ -30,10 +46,15 @@ class Character:
         self.height = 50
         self.color = (255, 215, 0, 255)  # Gold color for character
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.animation = CharacterAnimation(player_frames)
 
     def draw(self):
-        pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+        #pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+        current_frame = self.animation.get_current_frame()
+        screen.blit(current_frame, (self.x, self.y))
 
+    def update_animation(self):
+        self.animation.update()
 # Wall Class
 class Wall:
     def __init__(self, x, y, width, height, color=(0, 0, 255)):
@@ -65,6 +86,9 @@ class Goalpost:
         dx = self.x - character.x
         dy = self.y - character.y
         return math.sqrt(dx ** 2 + dy ** 2)
+    
+# Initialize Pygame
+pygame.init()
 
 # Win state screen function
 def win_screen():
@@ -78,6 +102,7 @@ def win_screen():
 
 # Load animated chracter sprites
 player = pygame.transform.scale(pygame.image.load('assets/fireball_1.png'), (150,150))   
+player_frames = [pygame.image.load(f"assets/fireball_{i}.png") for i in range(1, 9)]
 screen.blit(player, (200,200))
 # Define the dimensions of each frame on the sprite sheet
         

@@ -114,7 +114,7 @@ frames = ['assets/fireball_1','assets/fireball_2','assets.fireball_3','assets.fi
 player = Character(0, height - 50) 
 
 # Create a wall instance
-wall = Wall(200, 200, 50, 200)
+wall = Wall(200, 520, 50, 200)
   # Positioned at the bottom of the screen
 floor = Wall(200, 400, 700, 50)
              
@@ -126,11 +126,17 @@ goalpost_right = Goalpost(740, 200, 10, 200)
 
 # Characte movement functions
 def moveLeft():
-    player.x -= 1
+    # Check for collision between character and wall
+    wallx = wall.x
+    if not wall.rect.colliderect(player.x - 1, player.y, player.width, player.height):
+        player.x -= 1
 def moveRight():
-    player.x += 1
+    wallx = wall.x
+    if not wall.rect.colliderect(player.x + 1, player.y, player.width, player.height):
+        player.x += 1
 def moveNowhere():
     player.x += 0
+
 
 jumpHeight = 10000000
 jumping = False
@@ -212,9 +218,9 @@ while True:
                 jumping = True
             
             # When jumping the player goes up intil they reach the jump height and then the jump height is reset so that gravity can bring the player down
-            if jumping == True and player.y > jumpHeight:
+            if jumping == True and player.y > jumpHeight and not wall.rect.colliderect(player.x, player.y -1.3, player.width, player.height):
                 player.y -= 1.3
-            elif jumping == True and player.y <= jumpHeight:
+            elif (jumping == True and player.y <= jumpHeight) or not wall.rect.colliderect(player.x, player.y -1.3, player.width, player.height):
                 jumpHeight = 2000
             
             # Checks if player is no longer jumping so that jumping can be set to false
@@ -228,15 +234,15 @@ while True:
             # Check for collision between character and wall
             if player.rect.colliderect(wall.rect):
                 # If collision occurs, adjust character position to prevent overlap
-                if keys[pygame.K_LEFT]:
+                if player.x > wall.x:
                     player.x = wall.rect.right
-                elif keys[pygame.K_RIGHT]:
+                elif player.x < wall.x:
                     player.x = wall.rect.left
                 elif keys[pygame.K_UP]:
                     player.y = wall.rect.bottom
             
             # Adds gravity
-            if not player.rect.colliderect(floor.rect):
+            if not player.rect.colliderect(floor.rect) and not wall.rect.colliderect(player.x, player.y + 0.5, player.width, player.height):
                 player.y += 0.5
 
             # Check if character reaches the bottom of the screen

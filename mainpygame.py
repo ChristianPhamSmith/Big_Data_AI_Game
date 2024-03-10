@@ -252,7 +252,8 @@ while True:
 
             # Check for win condition (character within a certain distance to goalpost)
             if goalpost_left.distance_to_character(player) < 30 or goalpost_right.distance_to_character(player) < 30:
-                win_screen()
+                #win_screen()
+                start += 10
 
             # Clear the screen
             screen.fill((255, 255, 255))  # White background

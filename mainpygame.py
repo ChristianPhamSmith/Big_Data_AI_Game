@@ -116,23 +116,23 @@ player = Character(0, height - 50)
 # Create a wall instance
 wall = Wall(200, 520, 50, 200)
   # Positioned at the bottom of the screen
-floor = Wall(200, 400, 700, 50)
+floor = Wall(200, 520, 700, 50)
              
             
 # Create goalpost instances
 goalpost_left = Goalpost(50, 200, 10, 200)
-goalpost_right = Goalpost(740, 200, 10, 200)
+goalpost_right = Goalpost(840, 320, 10, 200)
 
 
 # Characte movement functions
 def moveLeft():
     # Check for collision between character and wall
     wallx = wall.x
-    if not wall.rect.colliderect(player.x - 1, player.y, player.width, player.height):
+    if not wall.rect.colliderect(player.x - 1, player.y, player.width, player.height) and not floor.rect.colliderect(player.x - 1, player.y, player.width, player.height):
         player.x -= 1
 def moveRight():
     wallx = wall.x
-    if not wall.rect.colliderect(player.x + 1, player.y, player.width, player.height):
+    if not wall.rect.colliderect(player.x + 1, player.y, player.width, player.height) and not floor.rect.colliderect(player.x + 1, player.y, player.width, player.height):
         player.x += 1
 def moveNowhere():
     player.x += 0
@@ -218,9 +218,9 @@ while True:
                 jumping = True
             
             # When jumping the player goes up intil they reach the jump height and then the jump height is reset so that gravity can bring the player down
-            if jumping == True and player.y > jumpHeight and not wall.rect.colliderect(player.x, player.y -1.3, player.width, player.height):
+            if jumping == True and player.y > jumpHeight and not wall.rect.colliderect(player.x, player.y -1.3, player.width, player.height) and not floor.rect.colliderect(player.x, player.y -1.3, player.width, player.height):
                 player.y -= 1.3
-            elif (jumping == True and player.y <= jumpHeight) or not wall.rect.colliderect(player.x, player.y -1.3, player.width, player.height):
+            elif (jumping == True and player.y <= jumpHeight) or not wall.rect.colliderect(player.x, player.y -1.3, player.width, player.height) or not floor.rect.colliderect(player.x, player.y -1.3, player.width, player.height):
                 jumpHeight = 2000
             
             # Checks if player is no longer jumping so that jumping can be set to false
@@ -242,7 +242,7 @@ while True:
                     player.y = wall.rect.bottom
             
             # Adds gravity
-            if not player.rect.colliderect(floor.rect) and not wall.rect.colliderect(player.x, player.y + 0.5, player.width, player.height):
+            if not player.rect.colliderect(floor.rect) and not wall.rect.colliderect(player.x, player.y + 0.5, player.width, player.height) and not floor.rect.colliderect(player.x, player.y + 0.5, player.width, player.height):
                 player.y += 0.5
 
             # Check if character reaches the bottom of the screen

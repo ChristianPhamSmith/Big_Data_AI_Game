@@ -206,7 +206,7 @@ while True:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            print(player.x)
+            print(player.y, floor.y)
             # Handle character movements (for example, using arrow keys)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary
@@ -224,7 +224,7 @@ while True:
                 jumpHeight = 2000
             
             # Checks if player is no longer jumping so that jumping can be set to false
-            if player.y == 670:
+            if player.y == 670 or wall.rect.colliderect(player.x, player.y + 0.5, player.width, player.height) or floor.rect.colliderect(player.x, player.y + 0.5, player.width, player.height):
                 jumping = False
     
     

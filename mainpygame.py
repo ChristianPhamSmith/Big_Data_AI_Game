@@ -207,7 +207,6 @@ while True:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-            print(player.y, floor.y)
             # Handle character movements (for example, using arrow keys)
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and player.x > 0:  # Check if the character is within the left boundary

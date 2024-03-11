@@ -13,6 +13,9 @@ db = mysql.connector.connect(
     database="ai_data"
     )
 
+#clock
+#clock = pygame.time.clock()
+#FPS = 150 # adjust this value as needed
 
 # setup the display
 width, height = 1280, 720
@@ -55,6 +58,15 @@ class Character:
 
     def update_animation(self):
         self.animation.update()
+
+# Define The Background Class
+# class Background:
+#     def __init__(self, image_path):
+#         self.image = pygame.image.load(image_path)
+#         self.rect = self.image.get_rect()
+#     def draw(self, screen):
+#         screen.blit(self.image, self.rect)
+
 # Wall Class
 class Wall:
     def __init__(self, x, y, width, height, color=(0, 0, 255)):
@@ -111,18 +123,26 @@ frames = ['assets/fireball_1','assets/fireball_2','assets.fireball_3','assets.fi
 # list is in 'assets folder        
 
 # Create character instance
+<<<<<<< HEAD
+player = Character(width - 75, height - 75) 
+=======
 player = Character(0, height - 50) 
+>>>>>>> 8cf83a3eff215ce266411fb68e8099ce30ebcc4e
 
 # Create a wall instance
 wall = Wall(200, 520, 50, 200)
   # Positioned at the bottom of the screen
+<<<<<<< HEAD
+floor = Wall(200, 400, 700, 50)
+         
+=======
 floor = Wall(200, 520, 700, 50)
              
             
+>>>>>>> 8cf83a3eff215ce266411fb68e8099ce30ebcc4e
 # Create goalpost instances
 goalpost_left = Goalpost(50, 200, 10, 200)
 goalpost_right = Goalpost(840, 320, 10, 200)
-
 
 # Characte movement functions
 def moveLeft():
@@ -183,6 +203,9 @@ aiNumber = 0
 aiGeneration = 0
 
 topTen = {}
+
+# Create an instance of the Background class
+#background = Background('assets/bg_image/bg_img.png')
 
 # Main game loop
 while True:
@@ -258,6 +281,9 @@ while True:
             # Clear the screen
             screen.fill((255, 255, 255))  # White background
 
+            # Draw the background
+            #background.draw(screen)
+
             # Draw the walls
             wall.draw(screen)
             floor.draw(screen)
@@ -271,7 +297,9 @@ while True:
 
             # Update the display
             pygame.display.flip()
-    
+
+            #cap the frame rate to
+            #clock.tick(150)
     
             ## Input layer ##
     

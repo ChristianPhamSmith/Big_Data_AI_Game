@@ -186,6 +186,8 @@ topTen = {}
 # Main game loop
 while True:
     
+    topTen.clear()
+    
     aiGeneration += 1
     
     #Selects the AIs for that are in the latest generation

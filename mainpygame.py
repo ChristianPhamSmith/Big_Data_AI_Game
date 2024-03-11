@@ -174,8 +174,7 @@ score = None
 
 # This calculates the score
 def scoreCalc(goalX, goalY):
-    calculatedScore = abs(goalX) + abs(goalY)
-    return calculatedScore
+    return abs(goalX + goalY)
 
 # This generated a random number to decide if each movement variable should mutate
 def mutationDice():
@@ -391,10 +390,7 @@ while True:
             #print(end - start)
             if end - start >= 10:
                 
-                if goalpost_left.distance_to_character(player) < 30 or goalpost_right.distance_to_character(player) < 30:
-                    score = -1
-                else:
-                    score = scoreCalc(goalpost_rightX, goalpost_rightY)
+                score = scoreCalc(goalpost_rightX, goalpost_rightY)
                 aiID = ai[0]
                 
                 #prints the AI's score

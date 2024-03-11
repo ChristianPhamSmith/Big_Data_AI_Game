@@ -12,8 +12,8 @@ db = mysql.connector.connect(
 ## 1st Gen Value Generation ##
 
 
-# This for loop is used to generate each AI. It is currentlly set to generate 1000 AIs
-for ai in range(1000):
+# This for loop is used to generate each AI. It is currentlly set to generate 250 AIs
+for ai in range(250):
     # The X-values are the points on the X-axis that the AI uses to create zones where the AI will make movement decisions based on if the goal post is within that zone
     leftXValue = random.randrange(-1280, 1280)
     rightXValue = random.randrange(leftXValue, 1280)

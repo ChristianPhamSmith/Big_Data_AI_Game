@@ -190,7 +190,7 @@ while True:
     
     #Selects the AIs for that are in the latest generation
     # If you are testing or changing things with the AI I recomend that you write LIMIT 20 at the end of the SQL statement
-    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration} LIMIT 20")
+    mycursor.execute(f"SELECT * FROM ai_save Where Generation = {aiGeneration}")
     aiSaveData = mycursor.fetchall()
     
     for ai in aiSaveData:
@@ -388,7 +388,7 @@ while True:
         
         for ai in survivorData:
             print(ai)
-            for child in range(100):
+            for child in range(25):
                 generation = ai[1] + 1
                 score = 9000
                 movement1 = ai[3]
